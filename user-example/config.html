@@ -1,0 +1,111 @@
+<body name="config">
+
+
+   <!-- content of background (html) -->
+   <var name="core.elem.background.extra">
+      <div data-var="myChat"></div>
+   </var>
+
+
+
+
+   <!-- content of standby boxes (html) -->
+   <var name="core.elem.standby.extra"></var>
+
+   <var name="core.elem.standby.top">
+      <span data-var="myTitle"></span>
+   </var>
+
+   <var name="core.elem.standby.middle">
+      <span data-var="myDescription"></span>
+
+      <div data-var="user-description" style="text-align:justify;"></div>
+      <br/>
+      <div data-var="myCredits"></div>
+      <div data-var="myTwitchStats"></div>
+   </var>
+
+   <var name="core.elem.standby.bottom">
+      <span data-var="clock.dateTimeZone"></span>
+   </var>
+
+
+
+
+   <!-- content of overlay boxes (html) -->
+   <var name="core.elem.overlay.extra">
+      <div data-var="myChatSmall"></div>
+   </var>
+
+   <var name="core.elem.overlay.top.left">
+      <span data-var="myCredits"></span>
+   </var>
+
+   <var name="core.elem.overlay.top.middle"></var>
+
+   <var name="core.elem.overlay.top.right">
+      <span data-var="clock.dateTimeZone"></span>
+   </var>
+
+   <var name="core.elem.overlay.bottom.left">
+      <span data-var="myTitle"></span>
+   </var>
+
+   <var name="core.elem.overlay.bottom.middle"></var>
+
+   <var name="core.elem.overlay.bottom.right">
+      <span data-var="myTwitchStats"></span>
+   </var>
+
+
+
+
+   <!-- plugin: twitch -->
+   <var name="core.plugin.twitch">1</var>
+   <var name="twitch.channel">twitch</var>
+
+
+
+
+   <!-- plugin: clock -->
+   <var name="core.plugin.clock">1</var>
+
+
+
+
+   <!-- plugin: obschat -->
+   <var name="core.plugin.obschat">1</var>
+   <var name="obschat.channel">twitch</var>
+
+
+
+
+   <!-- custom vars -->
+   <var name="myTitle">Tidily titling stuff</var>
+
+   <var name="myDescription">
+      This is a description,
+      <br/>it describes things with words.
+      <br/>Words !
+   </var>
+
+   <var name="myChat">
+      <div id="myChat" data-var="obschat.iframe.light"></div>
+   </var>
+
+   <var name="myChatSmall">
+      <div id="myChat" class="small" data-var="obschat.iframe.light"></div>
+   </var>
+
+   <var name="myCredits">
+      <img class="myIcon" src="user/img/icon-twitter.png"/> @my_twitter
+      <img class="myIcon" src="user/img/icon-youtube.png"/> /my_youtube
+      <img class="myIcon" src="user/img/icon-twitch.png"/> /my_twitch
+   </var>
+
+   <var name="myTwitchStats">
+      <img class="myIcon" src="user/img/gfx-viewers.png"/> <span data-var="twitch.viewers.count"></span>
+      <img class="myIcon" src="user/img/gfx-chat.png"/> <span data-var="twitch.chatters.count"></span>
+   </var>
+
+</body>

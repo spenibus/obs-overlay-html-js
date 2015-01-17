@@ -1,0 +1,224 @@
+/*******************************************************************************
+using viewport unit "vh" to keep proportions relative to viewport height
+sometimes extended with percentages
+*******************************************************************************/
+
+
+
+
+/********************************************************************* global */
+html, body {
+   width:100vw;
+   height:100vh;
+   margin:0;
+   padding:0;
+}
+
+body {
+   color:#FFF;
+   font-size:3vh;
+   font-family:arial;
+}
+
+* {
+   vertical-align:middle;
+}
+
+
+
+
+/********************************************************************* common */
+#myChat,
+#standby .box,
+#overlay .box {
+   background-image:url('img/bg-box.png');
+   background-size:auto 10vh;
+}
+#myChat,
+#standby .box,
+#overlay .box {
+   background-color:rgb(60,100,140);
+}
+#standby .box.middle {
+   background-color:rgb(20,60,100);
+}
+
+
+
+
+/***************************************************************** background */
+#background {
+   background-image:url('img/bg-wall.png');
+   background-size:auto 10vh;
+   background-color:rgb(20,30,40);
+}
+
+
+
+
+/******************************************************************** standby */
+#standby {
+   display:table-cell;
+}
+#standby .box {
+   max-width:120vh;
+   padding:1vh 2vh;
+   box-shadow:inset 0 0 2vh 0vh #000, 0 0 4vh 1vh #000;
+   border:0.25vh solid #FFF;
+   border-left:0;
+   border-radius:0 1vh 1vh 0;
+   padding-left:11vh;
+   margin-left:-10vh;
+}
+#standby .box.top {
+   max-width:90vh;
+   margin-bottom:-2vh;
+   position:relative;
+   z-index:101;
+}
+#standby .box.middle {
+   max-width:120vh;
+   position:relative;
+   z-index:100;
+   padding-top:3vh;
+   padding-bottom:3vh;
+}
+#standby .box.bottom {
+   max-width:60vh;
+   margin-top:-2vh;
+   position:relative;
+   z-index:101;
+   text-align:center;
+}
+
+
+
+
+/******************************************************************** overlay */
+#overlay {
+   display:table-cell;
+   font-weight:bold;
+   display:inline-block;
+}
+#overlay .box:empty {
+   display:none;
+}
+
+
+#overlay .wrapper {
+   position:fixed;
+}
+#overlay .wrapper.top {
+   top:0;
+}
+#overlay .wrapper.bottom {
+   bottom:0;
+}
+#overlay .wrapper.left {
+   left:0;
+}
+#overlay .wrapper.middle {
+   left:0;
+   right:0;
+   text-align:center;
+}
+#overlay .wrapper.right {
+   right:0;
+}
+
+
+#overlay .box {
+   font-size:2vh;
+   line-height:2vh;
+   display:inline-block;
+   padding:0.25vh;
+   white-space:nowrap;
+   border:0.25vh solid #FFF;
+   box-shadow:0 0 4vh 1vh #000;
+}
+#overlay .box.top {
+   border-top-width:0;
+   vertical-align:top;
+}
+#overlay .box.bottom {
+   border-bottom-width:0;
+   vertical-align:bottom;
+}
+#overlay .box.left {
+   padding-right:3vh;
+   border-left-width:0;
+}
+#overlay .box.middle {
+   padding-right:3vh;
+   padding-left:3vh;
+}
+#overlay .box.right {
+   padding-left:3vh;
+   border-right-width:0;
+}
+
+
+#overlay .box.top.left {
+   border-radius:0 0 3vh 0;
+}
+#overlay .box.top.middle {
+   border-radius:0 0 3vh 3vh;
+}
+#overlay .box.top.right {
+   border-radius:0 0 0 3vh;
+}
+#overlay .box.bottom.left {
+   border-radius:0 3vh 0 0;
+}
+#overlay .box.bottom.middle {
+   border-radius:3vh 3vh 0 0;
+}
+#overlay .box.bottom.right {
+   border-radius:3vh 0 0 0;
+}
+
+
+
+
+
+
+
+
+/********************************************************************* myIcon */
+.myIcon {
+   max-width:3vh;
+   max-height:3vh;
+}
+#overlay .myIcon {
+   max-width:2vh;
+   max-height:2vh;
+}
+
+
+
+
+/********************************************************************* myChat */
+#myChat {
+   position:fixed;
+   bottom:4vh;
+   right:1vh;
+   width:40.5vh;
+   height:90vh;
+   padding:1vh;
+   border-radius:1.5vh;
+   box-shadow:0 0 4vh 1vh #000;
+}
+#overlay #myChat.small {
+   width:41.5vh;
+   height:20vh;
+   bottom:1vh;
+   padding:0.5vh;
+   border-radius:1vh;
+}
+#myChat > iframe {
+   background-color:#EEE;
+   border:0;
+   width:100%;
+   height:100%;
+   border-radius:0.5vh;
+}
