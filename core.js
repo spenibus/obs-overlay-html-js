@@ -421,6 +421,8 @@ var obsOverlay = {
          }
 
 
+         // querySelectorAll should return nodes in "depth-first pre-order traversal"
+         // incremental looping should therefore not skip nodes in case of subtree modification
          var nodes = container.querySelectorAll('[data-var]');
          var timestampData = obsOverlay.get('varsTimestamp');
 
