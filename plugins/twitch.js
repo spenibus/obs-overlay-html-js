@@ -35,10 +35,10 @@ available variables:
          'https://api.twitch.tv/kraken/streams/'+channel+'?t='+timestamp,
          function(r) {
             r = JSON.parse(r.target.responseText);
-            if(r && r.stream && r.stream.viewers != null) {
-               // export var
-               obsOverlay.setVar('twitch.viewers.count', r.stream.viewers);
-            }
+            r = r && r.stream && r.stream.viewers != null ? r.stream.viewers : 'n/a'
+
+            // export var
+            obsOverlay.setVar('twitch.viewers.count', r);
          }
       );
 
@@ -48,10 +48,10 @@ available variables:
          'http://tmi.twitch.tv/group/user/'+channel+'/chatters?t='+timestamp,
          function(r) {
             r = JSON.parse(r.target.responseText);
-            if(r) {
-               // export var
-               obsOverlay.setVar('twitch.chatters.count', r.chatter_count);
-            }
+            r = r ? r.chatter_count : 'n/a'
+
+            // export var
+            obsOverlay.setVar('twitch.chatters.count', r);
          }
       );
    }

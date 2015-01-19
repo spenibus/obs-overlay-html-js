@@ -15,10 +15,9 @@ you to edit the configuration or the style without restarting the stream.
 
 
 ************************************************************************** Setup
-Create the two following files in "user/":
-   style.css
+Create the two following file in "user/":
    config.html
-These two files are the bare minimum required to make it work.
+These is the bare minimum required to make it work.
 You can use the files from "user-example/" to get started.
 
 
@@ -55,8 +54,11 @@ This is the document to be shown when the stream is live and active.
 
 
 ************************************************************ user files overview
-style.css
-This is used for styling the overlay.
+obs-overlay/user/              user config folder
+obs-overlay/user/config.html   user config file
+obs-overlay/user/styles        user styles folder
+obs-overlay/user/plugins       user plugins folder
+
 
 config.html
 This holds the overlay configuration.
@@ -113,6 +115,9 @@ This holds the overlay configuration.
       -- core.elem.overlay.bottom.right
          content of bottom right box of the overlay screen
 
+      -- core.style.*
+         explained below
+
       -- core.plugin.*
          explained below
 
@@ -161,13 +166,25 @@ Example: nesting variables
 </var>
 
 
+******************************************************************* Using styles
+To add a style sheet, create a css file in your user folder, then add this to
+the user config:
+<var name="core.style.example">1</var>
+
+For example, if you create the file "user/styles/myStyle.css", the config is:
+<var name="core.style.myStyle">1</var>
+This will add "myStyle.css" to every document.
+
+You can disable a style by setting its value to something that is not "1".
+
+
 ****************************************************************** Using plugins
 To use a plugin, copy the plugin script file to the user folder, then add this
 to the user config:
-<var name="core.plugin.plugin-name">1</var>
+<var name="core.plugin.example">1</var>
 
 For example, to use the clock plugin, copy
-"plugins/clock.js" to "user/clock.js"
+"plugins/clock.js" to "user/plugins/clock.js"
 then add this to "user/config.html":
 <var name="core.plugin.clock">1</var>
 You should then have access to "clock.*" variables.

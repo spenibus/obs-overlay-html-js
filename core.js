@@ -20,9 +20,12 @@ var obsOverlay = {
 
    //*********************************************************** internal config
    cfg : {
-      base_dir    : document.location.href.match(/^(.*\/)/)[1],
+      dir_base         : document.location.href.match(/^(.*\/)/)[1],
+      dir_user         : 'user/',
+      dir_user_plugins : 'user/plugins/',
+      dir_user_styles  : 'user/styles/',
+
       file_config : 'user/config.html',
-      file_style  : 'user/style.css',
    },
 
 
@@ -83,33 +86,6 @@ var obsOverlay = {
                nodes[i].innerHTML = str;
             }
          }
-      }
-   },
-
-
-
-
-   //**************************************************************** reload css
-   cssReload : function(timestamp) {
-
-      var node = document.getElementById('css');
-
-      if(!node) {
-         node = document.createElement('link');
-         node.setAttribute('id',   'css');
-         node.setAttribute('href', obsOverlay.cfg.file_style);
-         node.setAttribute('type', 'text/css');
-         node.setAttribute('rel',  'stylesheet');
-         document.getElementsByTagName("head")[0].appendChild(node);
-      }
-
-      // get node timestamp
-      var nodeTimestamp = node.getAttribute('data-timestamp');
-
-      // reload if timestamp mismatch
-      if(nodeTimestamp != timestamp) {
-         node.setAttribute('data-timestamp', timestamp);
-         node.href = obsOverlay.cfg.file_style + '#' + timestamp;
       }
    },
 
@@ -274,7 +250,9 @@ var obsOverlay = {
          xhr.overrideMimeType("text/plain");
       }
 
-      xhr.send(null);
+      try{
+         xhr.send(null);
+      }catch(e){}
 
       return xhr.responseText;
    },
@@ -285,7 +263,7 @@ var obsOverlay = {
    //******************************************** parse user config and set vars
    configRead : function() {
 
-      var data = obsOverlay.fetchUrl(obsOverlay.cfg.base_dir + obsOverlay.cfg.file_config);
+      var data = obsOverlay.fetchUrl(obsOverlay.cfg.dir_base + obsOverlay.cfg.file_config);
       var doc  = (new DOMParser()).parseFromString(data, "text/html");
 
       var vars = doc.querySelectorAll('var');
@@ -304,21 +282,40 @@ var obsOverlay = {
    // create core vars from config and style
    core : function() {
 
+
       // read user config
       obsOverlay.configRead();
 
-      // read css
-      var css     = obsOverlay.fetchUrl(obsOverlay.cfg.base_dir + obsOverlay.cfg.file_style);
-      var cssPrev = obsOverlay.get('css.contentPrev');
 
-      // timestamp of last change
-      if(css != cssPrev) {
-         obsOverlay.set('css.timestamp', Date.now());
+      // check styles changes
+      var styles = obsOverlay.getVar('core.style');
+      for(var styleName in styles) {
+
+
+         // file path
+         var filePath = obsOverlay.cfg.dir_base
+            +obsOverlay.cfg.dir_user_styles
+            +styleName
+            +'.css';
+
+
+         // read file
+         var css = obsOverlay.fetchUrl(filePath) || '0';
+
+
+         // previous read of same file
+         var cssPrev = obsOverlay.get('css.contentPrev.'+styleName);
+
+
+         // set timestamp if change
+         if(css != cssPrev) {
+            obsOverlay.set('css.timestamp.'+styleName, Date.now());
+         }
+
+
+         // update comparison
+         obsOverlay.set('css.contentPrev.'+styleName, css);
       }
-
-      // update
-      obsOverlay.set('css.content',     css);
-      obsOverlay.set('css.contentPrev', css);
    },
 
 
@@ -350,30 +347,28 @@ var obsOverlay = {
 
             var enabled = plugins[pluginName] == 1 ? true : false;
 
-            if(enabled) {
-
-               // file path
-               var filePath = obsOverlay.cfg.base_dir+'user/'+pluginName+'.js';
-
-               // check if file exists
-               var isFile = null;
-               try{
-                  isFile = obsOverlay.fetchUrl(filePath);
-               }catch(e){}
-
-               if(!isFile) {
-                  obsOverlay.debug('plugin not found: '+pluginName);
-                  continue;
-               }
-
-               obsOverlay.debug('loading plugin: '+pluginName);
-
-               var plugin = document.createElement('script');
-               plugin.type = 'text/javascript';
-               plugin.src  = filePath;
-               document.body.appendChild(plugin);
-
+            if(!enabled) {
+               continue;
             }
+
+            // file path
+            var filePath = obsOverlay.cfg.dir_base
+               +obsOverlay.cfg.dir_user_plugins
+               +pluginName
+               +'.js';
+
+            // check if file exists
+            if(!obsOverlay.fetchUrl(filePath)) {
+               obsOverlay.debug('plugin not found: '+pluginName);
+               continue;
+            }
+
+            obsOverlay.debug('loading plugin: '+pluginName);
+
+            var plugin  = document.createElement('script');
+            plugin.type = 'text/javascript';
+            plugin.src  = filePath;
+            document.body.appendChild(plugin);
          }
 
 
@@ -402,11 +397,84 @@ var obsOverlay = {
    uiUpdate : function() {
 
 
-      // css update
-      var cssTimestamp = obsOverlay.get('css.timestamp');
-      obsOverlay.cssReload(cssTimestamp);
+      // sub routine: css update
+      obsOverlay.uiUpdate_css();
+
+      // sub routine: elements update
+      obsOverlay.uiUpdate_elements();
+   },
 
 
+
+
+   //************************************************ ui update sub routine: css
+   uiUpdate_css : function() {
+
+
+      var styles = obsOverlay.getVar('core.style');
+      for(var styleName in styles) {
+
+
+         // enabled status
+         var enabled = styles[styleName] == 1 ? true : false;
+
+
+         // file path
+         var filePath = obsOverlay.cfg.dir_base
+            +obsOverlay.cfg.dir_user_styles
+            +styleName
+            +'.css';
+
+
+         // check if style is already applied to document
+         var node = document.querySelector('link[rel="stylesheet"][data-name="'+styleName+'"]');
+
+
+         // delete node if present and disabled
+         if(node && !enabled) {
+
+            node.parentNode.removeChild(node);
+            continue;
+         }
+
+
+         // create node if missing and enabled
+         else if(!node && enabled) {
+
+            var node = document.createElement('link');
+            node.setAttribute('type',           'text/css');
+            node.setAttribute('rel',            'stylesheet');
+            node.setAttribute('href',           filePath);
+            node.setAttribute('data-name',      styleName);
+            node.setAttribute('data-timestamp', '0');
+            document.getElementsByTagName("head")[0].appendChild(node);
+         }
+
+
+         // update node if modified
+         else if(node) {
+
+            // css timestamp
+            var cssTimestamp = obsOverlay.get('css.timestamp.'+styleName);
+
+            // get node timestamp
+            var nodeTimestamp = node.getAttribute('data-timestamp');
+
+            // reload if timestamp mismatch
+            if(nodeTimestamp != cssTimestamp) {
+
+               node.setAttribute('data-timestamp', cssTimestamp);
+               node.href = filePath + '#' + cssTimestamp;
+            }
+         }
+      }
+   },
+
+
+
+
+   //******************************************* ui update sub routine: elements
+   uiUpdate_elements : function() {
 
 
       // elements update (recursive)
@@ -453,7 +521,10 @@ var obsOverlay = {
          }
       };
 
+
       // run
       build(document, 0, build);
    },
+
+
 };
