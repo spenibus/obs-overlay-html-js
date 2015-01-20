@@ -1,5 +1,10 @@
+2015-01-20 23:48 +0000
+- updated user-example style
+
+
 2015-01-19 17:03 +0000
 - updated user-example config
+
 
 2015-01-19 16:45 +0000
 - fetchurl error handling

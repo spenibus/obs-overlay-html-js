@@ -31,7 +31,7 @@ body {
 #myChat,
 #standby .box,
 #overlay .box {
-   background-image:url('img/bg-box.png');
+   background-image:url('../img/bg-box.png');
    background-size:auto 10vh;
 }
 #myChat,
@@ -48,7 +48,7 @@ body {
 
 /***************************************************************** background */
 #background {
-   background-image:url('img/bg-wall.png');
+   background-image:url('../img/bg-wall.png');
    background-size:auto 10vh;
    background-color:rgb(20,30,40);
 }
