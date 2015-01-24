@@ -52,7 +52,7 @@ available variables:
          'http://tmi.twitch.tv/group/user/'+channel+'/chatters?t='+timestamp,
          function(r) {
             r = JSON.parse(r.target.responseText);
-            r = r ? r.chatter_count : 'n/a'
+            r = r && r.chatter_count != null ? r.chatter_count : 'n/a'
 
             // export var
             obsOverlay.setVar('twitch.chatters.count', r);

@@ -1,3 +1,7 @@
+2015-01-24 15:33 +0000
+- plugin update: twitch: added value check
+
+
 2015-01-24 04:09 +0000
 - fixed missing chat elements in obschatmod, mostly user icons
 
