@@ -1,6 +1,10 @@
 /*******************************************************************************
+This plugin allows to easily include NightDev's OBS Chat.
+
+
 required variable from user config:
    obschat.channel   name of the twitch channel
+
 
 available variables:
    obschat.iframe.clear

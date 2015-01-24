@@ -1,6 +1,10 @@
 /*******************************************************************************
+This plugin offers access to twitch stats.
+
+
 required variable from user config:
    twitch.channel   name of the twitch channel
+
 
 available variables:
    twitch.chatters.count

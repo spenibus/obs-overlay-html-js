@@ -1,4 +1,7 @@
 /*******************************************************************************
+This plugin provides a clock.
+
+
 available variables:
    clock.date           yyyy-mm-dd
    clock.time           hh:mm:ss
