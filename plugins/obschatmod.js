@@ -196,10 +196,10 @@ obschatmod = {
             +'<script type="text/javascript">'
 
                // add vars to source
-               +'var obschatmod = {vars : '+obschatmod.vars.toSource()+'};'
+               +'var obschatmod = {vars : '+JSON.stringify(obschatmod.vars)+'};'
 
                // add extend to source
-               +'var extend='+extend.toSource()+';'
+               +'var extend='+extend.toString()+';'
 
                // run extend
                +'extend();'

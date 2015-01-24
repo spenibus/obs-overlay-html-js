@@ -1,3 +1,7 @@
+2015-01-24 02:31 +0000
+- fixed code injection logic in obschatmod
+
+
 2015-01-24 02:06 +0000
 - fixed error in obschatmod description
 
