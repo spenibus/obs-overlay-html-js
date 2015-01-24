@@ -90,6 +90,11 @@ obschatmod = {
          // delete load
          doc.head.innerHTML = doc.head.innerHTML.replace(/Chat\.load\(.*\n/i, '\n');
 
+         // add protocol to css images (because the location is a data string)
+         var styleNodes = doc.querySelectorAll('style');
+         for(var i=0; i<styleNodes.length; ++i) {
+            styleNodes[i].innerHTML = styleNodes[i].innerHTML.replace(/url\(\/\//gi, 'url(http://');
+         }
 
          // extend function to integrate in source
          var extend = function() {
@@ -141,25 +146,38 @@ obschatmod = {
                   timeNode.classList.add('time');
                   timeNode.innerHTML = timeStr;
 
-                  // get nick node
-                  var nickNode = node.querySelector('.nick');
-
                   // get message node
                   var msgNode = node.querySelector('.message');
+
+                  // remove msg node from line
+                  node.removeChild(msgNode);
+
+                  // get remaining nodes from line
+                  var otherNodes = node.querySelectorAll('span');
 
                   // create header node
                   var headerNode = document.createElement('div');
                   headerNode.classList.add('header');
-                  headerNode.appendChild(nickNode);
-                  headerNode.innerHTML += ' - ';
+
+                  // add other nodes to header
+                  for(var i=0; i<otherNodes.length; ++i) {
+                     headerNode.appendChild(otherNodes[i]);
+                  }
+
+                  // add space
+                  headerNode.innerHTML += ' ';
+
+                  // add time display
                   headerNode.appendChild(timeNode);
 
+                  // delete line content
                   node.innerHTML = '';
+
+                  // insert header and message
                   node.appendChild(headerNode);
                   node.appendChild(msgNode);
 
-
-                  // zebra highlighting
+                  // add zebra highlighting
                   if(obschatmod.vars.zebra == '1') {
                      node.classList.add(window.chatZebraEven ? 'zebraEven' : 'zebraOdd');
                   }
