@@ -1,3 +1,7 @@
+2015-01-24 16:15 +0000
+- fixed strict null/zero value check
+
+
 2015-01-24 15:33 +0000
 - plugin update: twitch: added value check
 

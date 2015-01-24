@@ -137,7 +137,7 @@ var obsOverlay = {
       var target = config;
       for(var i=0; i<bits.length; ++i) {
 
-         if(!target[bits[i]]) {
+         if(target[bits[i]] == null) {
             return null;
          }
          var target = target[bits[i]];
