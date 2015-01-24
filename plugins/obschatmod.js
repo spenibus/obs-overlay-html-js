@@ -19,7 +19,7 @@ required variable from user config:
                                "t" for time as "23:59:59"
                                "z" for timezone as "+1200"
                                example: "d t" = "2015-12-31 23:59:59"
-   obschatmod.style            style to use
+   obschatmod.cfg.style        style to use
                                "clear", "light", "dark"
 
 
