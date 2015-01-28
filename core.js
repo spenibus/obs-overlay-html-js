@@ -237,13 +237,15 @@ var obsOverlay = {
 
 
    //***************************************************************** fetch url
-   fetchUrl: function(url, onload) {
+   fetchUrl: function(url, onloadFunc, timeoutFunc) {
 
-      onload = onload || false;
+      onloadFunc  = onloadFunc  || false;
+      timeoutFunc = timeoutFunc || false;
 
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", url, onload ? true : false);
-      xhr.onload = onload ? onload : null;
+      xhr.open("GET", url, onloadFunc ? true : false);
+      xhr.onload    = onloadFunc  ? onloadFunc  : null;
+      xhr.ontimeout = timeoutFunc ? timeoutFunc : null;
 
       // local file
       if(url.substr(0,4) == 'file') {
