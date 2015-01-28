@@ -1,3 +1,7 @@
+2015-01-28 19:32 +0000
+- Created main styles folder for possible future themes
+
+
 2015-01-24 16:15 +0000
 - fixed strict null/zero value check
 
