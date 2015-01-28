@@ -1,3 +1,7 @@
+2015-01-28 19:57 +0000
+- Improved fetchUrl timeout code
+
+
 2015-01-28 19:47 +0000
 - Added default timeout of 20 seconds to fetchUrl
 

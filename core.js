@@ -242,11 +242,17 @@ var obsOverlay = {
       onloadFunc  = onloadFunc  || false;
       timeoutFunc = timeoutFunc || false;
 
+      var async = onloadFunc ? true : false;
+
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", url, onloadFunc ? true : false);
-      xhr.timeout   = 20000;
+      xhr.open("GET", url, async);
       xhr.onload    = onloadFunc  ? onloadFunc  : null;
       xhr.ontimeout = timeoutFunc ? timeoutFunc : null;
+
+      // timeout on async
+      if(async) {
+         xhr.timeout = 20000;
+      }
 
       // local file
       if(url.substr(0,4) == 'file') {
