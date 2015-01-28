@@ -244,6 +244,7 @@ var obsOverlay = {
 
       var xhr = new XMLHttpRequest();
       xhr.open("GET", url, onloadFunc ? true : false);
+      xhr.timeout   = 20000;
       xhr.onload    = onloadFunc  ? onloadFunc  : null;
       xhr.ontimeout = timeoutFunc ? timeoutFunc : null;
 
