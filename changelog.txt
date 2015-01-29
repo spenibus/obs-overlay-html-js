@@ -1,3 +1,7 @@
+2015-01-29 13:30 +0000
+- fixed typo in readme
+
+
 2015-01-28 19:59 +0000
 - Twitch plugin: vars are now initiated at startup and timeout is handled
 

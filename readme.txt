@@ -15,8 +15,7 @@ you to edit the configuration or the style without restarting the stream.
 
 
 ************************************************************************** Setup
-Create the two following file in "user/":
-   config.html
+Create the file "user/config.html".
 These is the bare minimum required to make it work.
 You can use the files from "user-example/" to get started.
 
