@@ -14,6 +14,11 @@ When modifications are detected, the overlay is updated accordingly. This allows
 you to edit the configuration or the style without restarting the stream.
 
 
+********************************************************* extra reading material
+OBS Overlay - The illustrated guide
+http://spenibus.net/b/p/p/OBS-Overlay-The-illustrated-guide
+
+
 ************************************************************************** Setup
 Create the file "user/config.html".
 These is the bare minimum required to make it work.

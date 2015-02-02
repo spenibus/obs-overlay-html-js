@@ -1,3 +1,7 @@
+2015-02-02 15:11 +0000
+- updated readme with the illustrated guide blog post url
+
+
 2015-01-29 13:30 +0000
 - fixed typo in readme
 
