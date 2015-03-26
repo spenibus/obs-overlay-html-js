@@ -30,6 +30,12 @@ obschatmod = {
 
 
    //***************************************************************************
+   baseUrl : 'https://www.nightdev.com/hosted/obschat/',
+
+
+
+
+   //***************************************************************************
    chatWindow   : null,
 
 
@@ -79,7 +85,7 @@ obschatmod = {
 
 
          // get chat document source
-         var html = obsOverlay.fetchUrl('https://www.nightdev.com/hosted/obschat/');
+         var html = obsOverlay.fetchUrl(obschatmod.baseUrl);
 
 
          // make doc from source
@@ -90,11 +96,28 @@ obschatmod = {
          // delete load
          doc.head.innerHTML = doc.head.innerHTML.replace(/Chat\.load\(.*\n/i, '\n');
 
+
+         // complete url of relative scripts (because the location is a data string)
+         var scriptNodes = doc.querySelectorAll('script');
+         for(var i=0; i<scriptNodes.length; ++i) {
+
+            if(!scriptNodes[i].src) {
+               continue;
+            }
+
+            scriptNodes[i].src = scriptNodes[i].src.replace(
+               obsOverlay.cfg.dir_base,
+               obschatmod.baseUrl
+            );
+         }
+
+
          // add protocol to css images (because the location is a data string)
          var styleNodes = doc.querySelectorAll('style');
          for(var i=0; i<styleNodes.length; ++i) {
             styleNodes[i].innerHTML = styleNodes[i].innerHTML.replace(/url\(\/\//gi, 'url(http://');
          }
+
 
          // extend function to integrate in source
          var extend = function() {
