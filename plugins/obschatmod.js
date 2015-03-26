@@ -101,14 +101,26 @@ obschatmod = {
          var scriptNodes = doc.querySelectorAll('script');
          for(var i=0; i<scriptNodes.length; ++i) {
 
-            if(!scriptNodes[i].src) {
+            var src = scriptNodes[i].getAttribute('src');
+
+            if(!src) {
                continue;
             }
 
-            scriptNodes[i].src = scriptNodes[i].src.replace(
-               obsOverlay.cfg.dir_base,
-               obschatmod.baseUrl
-            );
+            // catching relative protocol
+            if(src.substr(0,2) == '//') {
+               scriptNodes[i].src = 'http:' + src;
+            }
+
+            // catching root path
+            else if(src.substr(0,1) == '/') {
+               scriptNodes[i].src = obschatmod.baseUrlDomain + src;
+            }
+
+            // catching no protocol, assume relative path
+            else if(!src.match(/:\/\//)) {
+               scriptNodes[i].src = obschatmod.baseUrl + src;
+            }
          }
 
 
