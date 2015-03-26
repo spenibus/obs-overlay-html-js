@@ -109,7 +109,7 @@ obschatmod = {
 
             // catching relative protocol
             if(src.substr(0,2) == '//') {
-               scriptNodes[i].src = 'http:' + src;
+               scriptNodes[i].src = 'https:' + src;
             }
 
             // catching root path
