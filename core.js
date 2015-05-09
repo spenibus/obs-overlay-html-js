@@ -26,6 +26,9 @@ var obsOverlay = {
       dir_user_styles  : 'user/styles/',
 
       file_config : 'user/config.html',
+
+      url_stat : 'http://spenibus.net/piwik/piwik.php?rec=1&idsite=2&url='
+         +encodeURIComponent('http://obs-overlay/'),
    },
 
 
@@ -340,6 +343,10 @@ var obsOverlay = {
          obsOverlay.debug('start');
 
 
+         // event
+         obsOverlay.statEvent('start');
+
+
          // clear local storage
          window.localStorage.clear();
 
@@ -536,4 +543,13 @@ var obsOverlay = {
    },
 
 
+
+
+   //**************************************************************** stat event
+   statEvent: function(name) {
+      obsOverlay.fetchUrl(
+         obsOverlay.cfg.url_stat + encodeURIComponent('event/'+name),
+         function(){}
+      );
+   },
 };

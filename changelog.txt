@@ -1,3 +1,7 @@
+2015-05-09 12:59 +0000
+- added statistics event recording
+
+
 2015-03-26 16:58 +0000
 - obschatmod: handling relative script url
 
