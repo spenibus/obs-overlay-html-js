@@ -1,5 +1,7 @@
 obs-overlay
 http://spenibus.net
+https://github.com/spenibus/obs-overlay-html-js
+https://gitlab.com/spenibus/obs-overlay-html-js
 
 
 *********************************************************************** Overview
